@@ -1,0 +1,8 @@
+Teleportação quântica não envolve transporte físico de matéria mas sim de informações quânticas
+A teleportação envolve três partículas: A, B e C (Alice AB, Bob C), a partícula A está no estado
+que queremos teleportar para C.
+Etapa 1: A partícula A é medida junto com a partícula B para colapsar os estados A e B em um novo
+estado que pode adquirir um dos quatro estados possíveis na computação clássica 00, 01, 10, 11, então
+é transmitido por meios tradicionais essa informação para Bob.
+Etapa 2: Com o resultado de AB é realizado uma operação quântica que coloca a partícula C no estado que 
+A estava originalmente.

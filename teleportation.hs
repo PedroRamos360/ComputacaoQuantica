@@ -69,6 +69,8 @@ magnitudeSquared x = magnitude x ** 2
 -- Main function
 main :: IO ()
 main = do
+    -- O operador :+ serve para criar números complexos em haskell
+    -- A linha de baixo significa 1 + 0i e 0 + 0i
     let psi = (1 :+ 0, 0 :+ 0)  -- Example qubit state (|0⟩)
     result <- teleportation psi
     putStrLn $ "Teleported qubit state: " ++ show result
