@@ -42,7 +42,7 @@ createEntangledPair =
 
 applyBellMeasurement :: Qubit -> Qubit -> (Qubit, Qubit)
 applyBellMeasurement psi aliceQubit =
-    let (aliceQubit', psi') = cnot psi aliceQubit
+    let (psi', aliceQubit') = cnot psi aliceQubit
         aliceQubit'' = hadamard aliceQubit'
     in (aliceQubit'', psi')
 
