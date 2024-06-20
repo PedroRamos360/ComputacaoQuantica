@@ -95,3 +95,42 @@ criando um bit emaranhado
 Essa é a expressão de retorno que vai retornar como primeiro Qubit o `entangledQubit` definido na linha anterior
 e usa `snd $ ...` para pegar o segundo argumento de retorno da aplicação do gate `cnot` com os parâmetros `entagledQubit`
 e `(0 :+ 0, 1 :+ 0)` equivalente ao Qubit |1>
+
+```haskell
+cnot :: Qubit -> Qubit -> (Qubit, Qubit)
+cnot (a1, b1) (a2, b2) =
+    if magnitude b1 == 0 then ((a1, b1), (a2, b2))
+    else ((a1, b1), pauliX (a2, b2))
+```
+
+`cnot :: Qubit -> Qubit -> (Qubit, Qubit)`
+Define a função cnot que recebe dois Qubits e retorna dois Qubits
+
+`cnot (a1, b1) (a2, b2) =`
+Quebra cada Qubit nos seus complexos que o representam (a1,b1) é o primeiro Qubit e (a2,b2) é o segundo
+
+`if magnitude b1 == 0 then ((a1, b1), (a2, b2))`
+Caso o segundo componente complexo do primeiro Qubit for 0 não é preciso alterar nada nos Qubits
+
+`else ((a1, b1), pauliX (a2, b2))`
+Caso b1 não seja 0 aplica a operação de pauliX, também conhecida como bit-flip, ou seja na prática vai retornar
+(a1, b1), (b2, a2)
+
+```haskell
+applyBellMeasurement :: Qubit -> Qubit -> (Qubit, Qubit)
+applyBellMeasurement psi aliceQubit =
+    let (psi', aliceQubit') = cnot psi aliceQubit
+        aliceQubit'' = hadamard aliceQubit'
+    in (aliceQubit'', psi')
+```
+
+Definição da função que aplica a medida de Bell recebe 2 Qubits e retorna 2 Qubits
+
+`applyBellMeasurement psi aliceQubit =`
+Passa primeiro Qubit recebido é o psi, o segundo e o aliceQubit
+
+`let (aliceQubit', psi') = cnot psi aliceQubit`
+É aplicado o gate cnot no Qubit de controle `psi` e em `aliceQubit` que resulta nos Qubits `psi'`e `aliceQubit'`
+nesse caso `psi'` sempre será igual a `psi` o único que pode variar é `aliceQubit'` dependendo se psi for |0> ou |1>
+
+`aliceQubit'' = hadamard aliceQubit'`
