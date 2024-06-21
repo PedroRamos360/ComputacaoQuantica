@@ -15,9 +15,6 @@ hadamard (a, b) = ((a + b) / sqrt 2, (a - b) / sqrt 2)
 pauliX :: Qubit -> Qubit
 pauliX (a, b) = (b, a)
 
-pauliY :: Qubit -> Qubit
-pauliY (a, b) = (0 :+ (-realPart a), imagPart b :+ 0)
-
 pauliZ :: Qubit -> Qubit
 pauliZ (a, b) = (a, -b)
 
