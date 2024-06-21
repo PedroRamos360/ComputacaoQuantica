@@ -1,14 +1,10 @@
--- teleportation.hs
-
 module Main where
 
 import System.Random (randomRIO)
 import Data.Complex (Complex((:+)), magnitude, realPart, imagPart)
 
--- Define Qubit type
 type Qubit = (Complex Double, Complex Double)
 
--- Quantum gates
 hadamard :: Qubit -> Qubit
 hadamard (a, b) = ((a + b) / sqrt 2, (a - b) / sqrt 2)
 
@@ -23,7 +19,6 @@ cnot (a1, b1) (a2, b2) =
     if magnitude b1 == 0 then ((a1, b1), (a2, b2))
     else ((a1, b1), pauliX (a2, b2))
 
--- Quantum teleportation protocol
 teleportation :: Qubit -> IO Int
 teleportation psi = do
     let (aliceQubit, bobQubit) = createEntangledPair
@@ -31,7 +26,6 @@ teleportation psi = do
         bobQubit'' = applyCorrection aliceQubit' bobQubit'
     measure bobQubit''
 
--- Helper functions
 createEntangledPair :: (Qubit, Qubit)
 createEntangledPair = 
     let entangledQubit = hadamard (1 :+ 0, 0 :+ 0)
@@ -49,7 +43,6 @@ applyCorrection (a1, b1) bobQubit' =
         bobQubit''' = if magnitude a1 == 1 then pauliZ bobQubit'' else bobQubit''
     in bobQubit'''
 
--- Measurement function
 measure :: Qubit -> IO Int
 measure (a, b) = do
     let prob0 = magnitudeSquared a
@@ -63,11 +56,8 @@ measure (a, b) = do
 magnitudeSquared :: Complex Double -> Double
 magnitudeSquared x = magnitude x ** 2
 
--- Main function
 main :: IO ()
 main = do
-    -- O operador :+ serve para criar números complexos em haskell
-    -- A linha de baixo significa 1 + 0i e 0 + 0i
-    let psi = (1 :+ 0, 0 :+ 0)  -- Example qubit state (|0⟩)
+    let psi = (1 :+ 0, 0 :+ 0)
     result <- teleportation psi
     putStrLn $ "Teleported qubit state: " ++ show result
